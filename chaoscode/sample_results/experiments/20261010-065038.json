@@ -1,0 +1,328 @@
+{
+  "id": "20261010-065038",
+  "plan": {
+    "tool": "network_delay",
+    "target": "profile",
+    "params": {
+      "delay_ms": 300
+    },
+    "duration_s": 30,
+    "hypothesis": "network_delay on profile degrades /hotels, /recommendations",
+    "reason": "affects 99% of traffic; On a memcached ERROR the service calls log.Panic and crashes.",
+    "expected_blast_radius": [
+      "/hotels",
+      "/recommendations"
+    ]
+  },
+  "ranked_candidates": [
+    {
+      "tool": "network_delay",
+      "target": "profile",
+      "reason": "affects 99% of traffic; On a memcached ERROR the service calls log.Panic and crashes."
+    },
+    {
+      "tool": "stop_dependency",
+      "target": "memcached-reserve",
+      "reason": "affects 60% of traffic; If this cache errors, reservation panics."
+    },
+    {
+      "tool": "cpu_throttle",
+      "target": "mongodb-reservation",
+      "reason": "affects 60% of traffic; Query errors make reservation panic (services/reservation/server.go)."
+    },
+    {
+      "tool": "network_delay",
+      "target": "reservation",
+      "reason": "affects 60% of traffic; Panics on memcached errors AND on MongoDB query errors."
+    },
+    {
+      "tool": "stop_dependency",
+      "target": "memcached-rate",
+      "reason": "affects 60% of traffic; If this cache errors, the rate service panics instead of falling back to MongoDB (services/rate/server.go)."
+    }
+  ],
+  "planner": "none",
+  "injected_at": 1791615038.9748592,
+  "fault_active_s": 30.0,
+  "aborted": false,
+  "abort_reason": null,
+  "baseline": {
+    "overall": {
+      "requests": 404,
+      "error_rate": 0.0,
+      "p50_ms": 5.5,
+      "p95_ms": 16.9
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 227,
+        "error_rate": 0.0,
+        "p50_ms": 8.6,
+        "p95_ms": 17.9
+      },
+      "/recommendations": {
+        "requests": 175,
+        "error_rate": 0.0,
+        "p50_ms": 3.7,
+        "p95_ms": 7.6
+      },
+      "/user": {
+        "requests": 2,
+        "error_rate": 0.0,
+        "p50_ms": 2.6,
+        "p95_ms": 2.6
+      }
+    }
+  },
+  "during": {
+    "overall": {
+      "requests": 588,
+      "error_rate": 0.0,
+      "p50_ms": 305.8,
+      "p95_ms": 315.1
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 336,
+        "error_rate": 0.0,
+        "p50_ms": 309.1,
+        "p95_ms": 315.9
+      },
+      "/recommendations": {
+        "requests": 249,
+        "error_rate": 0.0,
+        "p50_ms": 303.9,
+        "p95_ms": 310.0
+      },
+      "/reservation": {
+        "requests": 2,
+        "error_rate": 0.0,
+        "p50_ms": 37.7,
+        "p95_ms": 37.7
+      },
+      "/user": {
+        "requests": 1,
+        "error_rate": 0.0,
+        "p50_ms": 2.0,
+        "p95_ms": 2.0
+      }
+    }
+  },
+  "timeline": [
+    {
+      "t": 1.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 14.1,
+      "p95_ms": 312.0
+    },
+    {
+      "t": 2.0,
+      "requests": 48,
+      "error_rate": 0.0,
+      "p50_ms": 302.8,
+      "p95_ms": 313.9
+    },
+    {
+      "t": 3.0,
+      "requests": 48,
+      "error_rate": 0.0,
+      "p50_ms": 306.0,
+      "p95_ms": 314.9
+    },
+    {
+      "t": 4.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.1,
+      "p95_ms": 315.5
+    },
+    {
+      "t": 5.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.3,
+      "p95_ms": 315.5
+    },
+    {
+      "t": 6.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.3,
+      "p95_ms": 316.0
+    },
+    {
+      "t": 7.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.3,
+      "p95_ms": 313.1
+    },
+    {
+      "t": 8.0,
+      "requests": 61,
+      "error_rate": 0.0,
+      "p50_ms": 305.7,
+      "p95_ms": 313.1
+    },
+    {
+      "t": 9.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.8,
+      "p95_ms": 314.0
+    },
+    {
+      "t": 10.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.1,
+      "p95_ms": 314.6
+    },
+    {
+      "t": 11.0,
+      "requests": 58,
+      "error_rate": 0.0,
+      "p50_ms": 305.2,
+      "p95_ms": 314.0
+    },
+    {
+      "t": 12.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 304.9,
+      "p95_ms": 313.2
+    },
+    {
+      "t": 13.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.2,
+      "p95_ms": 314.6
+    },
+    {
+      "t": 14.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.3,
+      "p95_ms": 314.6
+    },
+    {
+      "t": 15.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.7,
+      "p95_ms": 314.6
+    },
+    {
+      "t": 16.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.2,
+      "p95_ms": 314.0
+    },
+    {
+      "t": 17.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.9,
+      "p95_ms": 315.6
+    },
+    {
+      "t": 18.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 307.3,
+      "p95_ms": 316.6
+    },
+    {
+      "t": 19.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 307.4,
+      "p95_ms": 319.9
+    },
+    {
+      "t": 20.0,
+      "requests": 61,
+      "error_rate": 0.0,
+      "p50_ms": 306.0,
+      "p95_ms": 315.4
+    },
+    {
+      "t": 21.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.1,
+      "p95_ms": 315.4
+    },
+    {
+      "t": 22.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.6,
+      "p95_ms": 549.0
+    },
+    {
+      "t": 23.0,
+      "requests": 58,
+      "error_rate": 0.0,
+      "p50_ms": 306.1,
+      "p95_ms": 549.0
+    },
+    {
+      "t": 24.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 307.8,
+      "p95_ms": 549.0
+    },
+    {
+      "t": 25.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.6,
+      "p95_ms": 315.8
+    },
+    {
+      "t": 26.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 305.8,
+      "p95_ms": 317.1
+    },
+    {
+      "t": 27.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.0,
+      "p95_ms": 318.9
+    },
+    {
+      "t": 28.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.9,
+      "p95_ms": 316.9
+    },
+    {
+      "t": 29.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.3,
+      "p95_ms": 316.2
+    },
+    {
+      "t": 30.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 306.1,
+      "p95_ms": 315.4
+    }
+  ],
+  "recovery_time_s": 2.0,
+  "impact_summary": [
+    "/hotels: errors 0%->0%, p95 18->316 ms",
+    "/recommendations: errors 0%->0%, p95 8->310 ms"
+  ]
+}

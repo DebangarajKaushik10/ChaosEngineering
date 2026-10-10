@@ -1,0 +1,381 @@
+{
+  "nodes": {
+    "attractions": {
+      "kind": "service",
+      "depends_on": [
+        "mongodb-attractions",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": ""
+    },
+    "frontend": {
+      "kind": "service",
+      "depends_on": [
+        "attractions",
+        "profile",
+        "recommendation",
+        "reservation",
+        "review",
+        "search",
+        "user",
+        "consul"
+      ],
+      "used_by": [],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": ""
+    },
+    "geo": {
+      "kind": "service",
+      "depends_on": [
+        "mongodb-geo",
+        "consul"
+      ],
+      "used_by": [
+        "search"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": ""
+    },
+    "memcached-profile": {
+      "kind": "cache",
+      "depends_on": [],
+      "used_by": [
+        "profile"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/recommendations"
+      ],
+      "traffic_share_affected": 0.99,
+      "replicas": 1,
+      "note": "If this cache errors, profile panics; profile serves /hotels AND /recommendations (~99% of traffic)."
+    },
+    "memcached-rate": {
+      "kind": "cache",
+      "depends_on": [],
+      "used_by": [
+        "rate"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": "If this cache errors, the rate service panics instead of falling back to MongoDB (services/rate/server.go)."
+    },
+    "memcached-reserve": {
+      "kind": "cache",
+      "depends_on": [],
+      "used_by": [
+        "reservation"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/reservation"
+      ],
+      "traffic_share_affected": 0.605,
+      "replicas": 1,
+      "note": "If this cache errors, reservation panics."
+    },
+    "memcached-review": {
+      "kind": "cache",
+      "depends_on": [],
+      "used_by": [
+        "review"
+      ],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": "If this cache errors, review panics."
+    },
+    "mongodb-attractions": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "attractions"
+      ],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-geo": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "geo"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-profile": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "profile"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/recommendations"
+      ],
+      "traffic_share_affected": 0.99,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-rate": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "rate"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-recommendation": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "recommendation"
+      ],
+      "endpoints_affected": [
+        "/recommendations"
+      ],
+      "traffic_share_affected": 0.39,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-reservation": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "reservation"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/reservation"
+      ],
+      "traffic_share_affected": 0.605,
+      "replicas": 1,
+      "note": "Query errors make reservation panic (services/reservation/server.go)."
+    },
+    "mongodb-review": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "review"
+      ],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": ""
+    },
+    "mongodb-user": {
+      "kind": "database",
+      "depends_on": [],
+      "used_by": [
+        "user"
+      ],
+      "endpoints_affected": [
+        "/user",
+        "/reservation"
+      ],
+      "traffic_share_affected": 0.01,
+      "replicas": 1,
+      "note": ""
+    },
+    "profile": {
+      "kind": "service",
+      "depends_on": [
+        "memcached-profile",
+        "mongodb-profile",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/recommendations"
+      ],
+      "traffic_share_affected": 0.99,
+      "replicas": 1,
+      "note": "On a memcached ERROR the service calls log.Panic and crashes."
+    },
+    "rate": {
+      "kind": "service",
+      "depends_on": [
+        "memcached-rate",
+        "mongodb-rate",
+        "consul"
+      ],
+      "used_by": [
+        "search"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": "On a memcached ERROR (not a miss) the service calls log.Panic and crashes."
+    },
+    "recommendation": {
+      "kind": "service",
+      "depends_on": [
+        "mongodb-recommendation",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [
+        "/recommendations"
+      ],
+      "traffic_share_affected": 0.39,
+      "replicas": 1,
+      "note": ""
+    },
+    "reservation": {
+      "kind": "service",
+      "depends_on": [
+        "memcached-reserve",
+        "mongodb-reservation",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [
+        "/hotels",
+        "/reservation"
+      ],
+      "traffic_share_affected": 0.605,
+      "replicas": 1,
+      "note": "Panics on memcached errors AND on MongoDB query errors."
+    },
+    "review": {
+      "kind": "service",
+      "depends_on": [
+        "memcached-review",
+        "mongodb-review",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [],
+      "traffic_share_affected": 0,
+      "replicas": 1,
+      "note": "On a memcached ERROR the service calls log.Panic and crashes."
+    },
+    "search": {
+      "kind": "service",
+      "depends_on": [
+        "geo",
+        "rate",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [
+        "/hotels"
+      ],
+      "traffic_share_affected": 0.6,
+      "replicas": 1,
+      "note": ""
+    },
+    "user": {
+      "kind": "service",
+      "depends_on": [
+        "mongodb-user",
+        "consul"
+      ],
+      "used_by": [
+        "frontend"
+      ],
+      "endpoints_affected": [
+        "/user",
+        "/reservation"
+      ],
+      "traffic_share_affected": 0.01,
+      "replicas": 1,
+      "note": ""
+    }
+  },
+  "endpoints": {
+    "/hotels": {
+      "calls": [
+        "search",
+        "reservation",
+        "profile"
+      ],
+      "traffic": 0.6
+    },
+    "/recommendations": {
+      "calls": [
+        "recommendation",
+        "profile"
+      ],
+      "traffic": 0.39
+    },
+    "/user": {
+      "calls": [
+        "user"
+      ],
+      "traffic": 0.005
+    },
+    "/reservation": {
+      "calls": [
+        "user",
+        "reservation"
+      ],
+      "traffic": 0.005
+    }
+  },
+  "global_notes": [
+    "No service sets gRPC deadlines (no context.WithTimeout), so slow calls hang."
+  ],
+  "edge_sources": {
+    "frontend->search": "code",
+    "frontend->reservation": "code",
+    "frontend->profile": "code",
+    "frontend->recommendation": "code",
+    "frontend->user": "code",
+    "frontend->review": "code",
+    "frontend->attractions": "code",
+    "search->geo": "code",
+    "search->rate": "code",
+    "geo->mongodb-geo": "code",
+    "rate->memcached-rate": "code",
+    "rate->mongodb-rate": "code",
+    "profile->memcached-profile": "code",
+    "profile->mongodb-profile": "code",
+    "reservation->memcached-reserve": "code",
+    "reservation->mongodb-reservation": "code",
+    "recommendation->mongodb-recommendation": "code",
+    "user->mongodb-user": "code",
+    "review->memcached-review": "code",
+    "review->mongodb-review": "code",
+    "attractions->mongodb-attractions": "code"
+  }
+}

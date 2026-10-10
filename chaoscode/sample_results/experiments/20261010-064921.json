@@ -1,0 +1,151 @@
+{
+  "id": "20261010-064921",
+  "plan": {
+    "tool": "kill_service",
+    "target": "search",
+    "params": {},
+    "duration_s": 90,
+    "hypothesis": "Killing search breaches the 50% error threshold and the kill switch restores it within ~5 s, well before 90 s",
+    "reason": "Day-1 safety-control test",
+    "expected_blast_radius": [
+      "/hotels"
+    ]
+  },
+  "ranked_candidates": [],
+  "planner": "none",
+  "injected_at": 1791614961.3396125,
+  "fault_active_s": 9.0,
+  "aborted": true,
+  "abort_reason": "error rate 60% > 50% for 5s",
+  "baseline": {
+    "overall": {
+      "requests": 400,
+      "error_rate": 0.0,
+      "p50_ms": 7.1,
+      "p95_ms": 19.6
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 237,
+        "error_rate": 0.0,
+        "p50_ms": 10.2,
+        "p95_ms": 21.6
+      },
+      "/recommendations": {
+        "requests": 160,
+        "error_rate": 0.0,
+        "p50_ms": 4.4,
+        "p95_ms": 15.0
+      },
+      "/reservation": {
+        "requests": 2,
+        "error_rate": 0.0,
+        "p50_ms": 36.6,
+        "p95_ms": 36.6
+      },
+      "/user": {
+        "requests": 1,
+        "error_rate": 0.0,
+        "p50_ms": 4.8,
+        "p95_ms": 4.8
+      }
+    }
+  },
+  "during": {
+    "overall": {
+      "requests": 181,
+      "error_rate": 0.646,
+      "p50_ms": 1.4,
+      "p95_ms": 4.2
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 117,
+        "error_rate": 1.0,
+        "p50_ms": 1.2,
+        "p95_ms": 2.1
+      },
+      "/recommendations": {
+        "requests": 63,
+        "error_rate": 0.0,
+        "p50_ms": 2.9,
+        "p95_ms": 6.0
+      },
+      "/user": {
+        "requests": 1,
+        "error_rate": 0.0,
+        "p50_ms": 1.6,
+        "p95_ms": 1.6
+      }
+    }
+  },
+  "timeline": [
+    {
+      "t": 1.0,
+      "requests": 60,
+      "error_rate": 0.25,
+      "p50_ms": 4.3,
+      "p95_ms": 14.5
+    },
+    {
+      "t": 2.0,
+      "requests": 60,
+      "error_rate": 0.6,
+      "p50_ms": 1.5,
+      "p95_ms": 10.9
+    },
+    {
+      "t": 3.0,
+      "requests": 60,
+      "error_rate": 0.767,
+      "p50_ms": 1.3,
+      "p95_ms": 5.6
+    },
+    {
+      "t": 4.0,
+      "requests": 60,
+      "error_rate": 0.667,
+      "p50_ms": 1.3,
+      "p95_ms": 3.4
+    },
+    {
+      "t": 5.0,
+      "requests": 60,
+      "error_rate": 0.567,
+      "p50_ms": 1.5,
+      "p95_ms": 3.7
+    },
+    {
+      "t": 6.0,
+      "requests": 60,
+      "error_rate": 0.633,
+      "p50_ms": 1.4,
+      "p95_ms": 3.4
+    },
+    {
+      "t": 7.0,
+      "requests": 60,
+      "error_rate": 0.65,
+      "p50_ms": 1.4,
+      "p95_ms": 4.2
+    },
+    {
+      "t": 8.0,
+      "requests": 60,
+      "error_rate": 0.617,
+      "p50_ms": 1.5,
+      "p95_ms": 5.0
+    },
+    {
+      "t": 9.0,
+      "requests": 60,
+      "error_rate": 0.55,
+      "p50_ms": 1.8,
+      "p95_ms": 5.2
+    }
+  ],
+  "recovery_time_s": 3.0,
+  "impact_summary": [
+    "/hotels: errors 0%->100%, p95 22->2 ms"
+  ]
+}

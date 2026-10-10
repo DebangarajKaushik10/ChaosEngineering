@@ -1,0 +1,302 @@
+{
+  "id": "20261010-065425",
+  "plan": {
+    "tool": "stop_dependency",
+    "target": "consul",
+    "params": {},
+    "duration_s": 30,
+    "hypothesis": "manual test",
+    "reason": "manual injection",
+    "expected_blast_radius": []
+  },
+  "ranked_candidates": [],
+  "planner": "anthropic",
+  "injected_at": 1791615265.424001,
+  "fault_active_s": 30.0,
+  "aborted": false,
+  "abort_reason": null,
+  "baseline": {
+    "overall": {
+      "requests": 401,
+      "error_rate": 0.0,
+      "p50_ms": 5.8,
+      "p95_ms": 18.7
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 237,
+        "error_rate": 0.0,
+        "p50_ms": 8.7,
+        "p95_ms": 20.4
+      },
+      "/recommendations": {
+        "requests": 158,
+        "error_rate": 0.0,
+        "p50_ms": 3.6,
+        "p95_ms": 9.0
+      },
+      "/reservation": {
+        "requests": 4,
+        "error_rate": 0.0,
+        "p50_ms": 54.4,
+        "p95_ms": 59.4
+      },
+      "/user": {
+        "requests": 2,
+        "error_rate": 0.0,
+        "p50_ms": 2.3,
+        "p95_ms": 2.3
+      }
+    }
+  },
+  "during": {
+    "overall": {
+      "requests": 603,
+      "error_rate": 0.0,
+      "p50_ms": 5.5,
+      "p95_ms": 17.3
+    },
+    "endpoints": {
+      "/hotels": {
+        "requests": 354,
+        "error_rate": 0.0,
+        "p50_ms": 8.7,
+        "p95_ms": 18.4
+      },
+      "/recommendations": {
+        "requests": 245,
+        "error_rate": 0.0,
+        "p50_ms": 3.3,
+        "p95_ms": 6.8
+      },
+      "/reservation": {
+        "requests": 3,
+        "error_rate": 0.0,
+        "p50_ms": 47.3,
+        "p95_ms": 49.0
+      },
+      "/user": {
+        "requests": 1,
+        "error_rate": 0.0,
+        "p50_ms": 1.8,
+        "p95_ms": 1.8
+      }
+    }
+  },
+  "timeline": [
+    {
+      "t": 1.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 7.1,
+      "p95_ms": 22.4
+    },
+    {
+      "t": 2.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.5,
+      "p95_ms": 21.2
+    },
+    {
+      "t": 3.0,
+      "requests": 59,
+      "error_rate": 0.0,
+      "p50_ms": 5.0,
+      "p95_ms": 13.3
+    },
+    {
+      "t": 4.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.0,
+      "p95_ms": 18.4
+    },
+    {
+      "t": 5.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.9,
+      "p95_ms": 19.1
+    },
+    {
+      "t": 6.0,
+      "requests": 62,
+      "error_rate": 0.0,
+      "p50_ms": 7.3,
+      "p95_ms": 18.4
+    },
+    {
+      "t": 7.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 7.3,
+      "p95_ms": 17.5
+    },
+    {
+      "t": 8.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 4.9,
+      "p95_ms": 14.8
+    },
+    {
+      "t": 9.0,
+      "requests": 58,
+      "error_rate": 0.0,
+      "p50_ms": 5.1,
+      "p95_ms": 18.7
+    },
+    {
+      "t": 10.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.9,
+      "p95_ms": 18.7
+    },
+    {
+      "t": 11.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 7.3,
+      "p95_ms": 18.9
+    },
+    {
+      "t": 12.0,
+      "requests": 61,
+      "error_rate": 0.0,
+      "p50_ms": 7.3,
+      "p95_ms": 15.8
+    },
+    {
+      "t": 13.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.8,
+      "p95_ms": 18.9
+    },
+    {
+      "t": 14.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.5,
+      "p95_ms": 20.8
+    },
+    {
+      "t": 15.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.2,
+      "p95_ms": 18.4
+    },
+    {
+      "t": 16.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.2,
+      "p95_ms": 26.3
+    },
+    {
+      "t": 17.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.9,
+      "p95_ms": 23.6
+    },
+    {
+      "t": 18.0,
+      "requests": 61,
+      "error_rate": 0.0,
+      "p50_ms": 5.5,
+      "p95_ms": 19.0
+    },
+    {
+      "t": 19.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.4,
+      "p95_ms": 13.3
+    },
+    {
+      "t": 20.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 5.1,
+      "p95_ms": 13.3
+    },
+    {
+      "t": 21.0,
+      "requests": 59,
+      "error_rate": 0.0,
+      "p50_ms": 5.9,
+      "p95_ms": 14.1
+    },
+    {
+      "t": 22.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.0,
+      "p95_ms": 14.1
+    },
+    {
+      "t": 23.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 7.6,
+      "p95_ms": 20.9
+    },
+    {
+      "t": 24.0,
+      "requests": 59,
+      "error_rate": 0.0,
+      "p50_ms": 7.0,
+      "p95_ms": 17.9
+    },
+    {
+      "t": 25.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 6.5,
+      "p95_ms": 20.9
+    },
+    {
+      "t": 26.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 4.9,
+      "p95_ms": 12.8
+    },
+    {
+      "t": 27.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 4.6,
+      "p95_ms": 10.6
+    },
+    {
+      "t": 28.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 4.3,
+      "p95_ms": 10.6
+    },
+    {
+      "t": 29.0,
+      "requests": 60,
+      "error_rate": 0.0,
+      "p50_ms": 4.6,
+      "p95_ms": 17.9
+    },
+    {
+      "t": 30.0,
+      "requests": 61,
+      "error_rate": 0.0,
+      "p50_ms": 4.6,
+      "p95_ms": 16.3
+    }
+  ],
+  "recovery_time_s": 0.0,
+  "impact_summary": [
+    "no significant impact"
+  ]
+}

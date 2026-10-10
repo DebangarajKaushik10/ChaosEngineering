@@ -1,0 +1,13 @@
+# Core (needed for everything, including the simulator demo)
+requests>=2.31
+pyyaml>=6.0
+matplotlib>=3.7
+
+# Optional: an LLM planner. Without a key the built-in rule-based planner is used automatically.
+# anthropic>=0.40      # LLM_PROVIDER=anthropic  (set ANTHROPIC_API_KEY)
+# openai>=1.40         # LLM_PROVIDER=openai     (OpenAI or any compatible server via OPENAI_BASE_URL)
+
+# Optional: live dashboard (the static results/report.html works without it)
+# streamlit>=1.35
+# plotly>=5.20
+# pandas>=2.0
